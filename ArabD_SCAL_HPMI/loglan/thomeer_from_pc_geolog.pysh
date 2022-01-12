@@ -1,0 +1,541 @@
+#!/usr/bin/env python3
+# python loglan
+# When referencing Geolog variables in a Python script, names must always be lower case.
+
+# Imports
+import geolog
+import numpy as np
+import pandas as pd
+from numpy import diff
+import matplotlib.pyplot as plt
+
+
+
+
+# =============================================================================
+# # ===========================================================================
+# # #-------------------------------------------------------------------------- 
+# # #                Read Pc Data Spreadsheet 
+# # #  
+# # #             
+# # #--------------------------------------------------------------------------
+# # ===========================================================================
+# =============================================================================
+#read the file
+#file = r'Pc_data_fmin.xlsx'
+#file = r'./data/Pc_data_dual_porosity.xlsx'
+
+#Thomeer_Pc_data = pd.read_excel(file,index_col=False)
+
+#Pc_r = Thomeer_Pc_data['Pc']
+#BVocc_r = Thomeer_Pc_data['BVocc']
+
+#x_Pc=np.array(BVocc_r)
+#y_Pc=np.array(Pc_r)
+# =============================================================================
+# # ===========================================================================
+# # #------------------------------------------------------------ 
+# # #               
+# # #     End of reading in Pc data
+# # #------------------------------------------------------------
+# # ===========================================================================
+# =============================================================================
+
+# Load data from geolog
+while geolog.getrow():
+
+
+
+    # Put your code here !!!
+    
+    Pc_r = pc_lab
+    BVocc_r = bvocc_lab
+    
+
+    x_Pc=np.array(BVocc_r)
+    y_Pc=np.array(Pc_r)   
+   
+    
+    # =============================================================================
+    # # ===========================================================================
+    # # #--------------------------------------------------------------------------
+    # ##
+    # ##            Graphical Input of User Porosity and Pereability 
+    # ##
+    # # #--------------------------------------------------------------------------
+    # =============================================================================
+    # =============================================================================
+    # =============================================================================
+    #             Graphical Input for Closure Correction and Pd1 
+    # =============================================================================
+    
+    def tellme(s):
+        print(s)
+        plt.title(s, fontsize=16, fontweight="bold", color = 'green')
+        plt.draw()
+    
+    
+    plt.clf()   #clear plot of other things
+    
+    plt.figure(num=2, figsize=(10, 10))
+    #plt.ion()
+    plt.semilogy(x_Pc, y_Pc  , 'g-*', linewidth=1, label='HPMI Data' )
+    plt.xlim(30.0,  0.01)
+    plt.ylim(1, 100000)
+    plt.grid(True, which="both",ls="-")
+    plt.legend()
+    
+    #Use pts array to store selected points
+    pts = []
+    
+    while len(pts) < 1:
+        tellme('Select Closure Correction and Pd1')
+        pts = np.asarray(plt.ginput(1, timeout=3))
+    
+    Closure = pts.item(0)
+    Pd1 = pts.item(1)
+    
+    print()
+    print('Closure Correction =', round(Closure,2), ' and Pd1 =', round(Pd1,1))
+    print()
+    
+    plt.close('all')
+    # =============================================================================
+    #             End of Graphical Input for Closure Correction and Pd1 
+    # =============================================================================
+    #Closure = 0.5
+    #Pd1 = 10
+    
+    # =============================================================================
+    #           Closure Correction of Pc data
+    # =============================================================================
+    x_Pc_nocc = np.array(BVocc_r)
+    for i in range(0,115,1):
+        
+        BVocc_r[i]=BVocc_r[i]-Closure
+        
+        if BVocc_r[i] < 0:
+            BVocc_r[i] = 0.001
+        else:
+            BVocc_r[i] = BVocc_r[i]
+    
+    x_Pc=np.array(BVocc_r)
+    #print(x_Pc_nocc)
+    #print(x_Pc)
+    # =============================================================================
+    #          End of Closure Correction for Pc data
+    # =============================================================================
+    
+    
+    
+    # =============================================================================
+    #             Graphical Input for Pd2 and BV1
+    # =============================================================================
+    
+    def tellme(s):
+        print(s)
+        plt.title(s, fontsize=16, fontweight="bold", color = 'blue')
+        plt.draw()
+    
+    plt.clf()   #clear plot of other things
+    
+    plt.figure(num=2, figsize=(10, 10))
+    
+    plt.loglog(x_Pc, y_Pc  , 'b-*', linewidth=1, label='HPMI Data' )
+    plt.loglog(Closure, Pd1  , 'k-o', linewidth=1, label='Closure Correction and Pd1 Estimate' )
+    plt.xlim(50.0,0.01)
+    plt.ylim(1, 100000)
+    plt.grid(True, which="both",ls="-")
+    plt.legend()
+    
+    pts = []
+    
+    
+    while len(pts) < 1:
+        tellme('Select BV1 and Pd2')
+        pts = np.asarray(plt.ginput(1, timeout=3))
+    
+    BV1 = pts.item(0)
+    Pd2 = pts.item(1)
+    G1  = 0.4
+    
+    print()
+    print('BV1 =', round(BV1,2), ' and Pd2 =', round(Pd2,1))
+    print()
+    
+    plt.close('all')  
+    # =============================================================================
+    #             End of Graphical Input for Pd2 and BV1
+    # =============================================================================
+    #BV1=7
+    #Pd2=300
+    
+    
+    # =============================================================================
+    #             Graphical Input for BVtotal
+    # =============================================================================
+    if no_pore_sys > 1: 
+        def tellme(s):
+            print(s)
+            plt.title(s, fontsize=16, fontweight="bold", color = 'red')
+            plt.draw()
+        
+        plt.clf()   #clear plot of other things
+        
+        plt.figure(num=2, figsize=( 10, 10))
+        
+        plt.loglog(x_Pc, y_Pc  , 'r-*', linewidth=1, label='HPMI Data' )
+        plt.loglog(Closure, Pd1  , 'k-o', linewidth=1, label='Closure Correction and Pd1 Estimate' )
+        plt.loglog(BV1, Pd2  , 'k-o', linewidth=1, label='BV1 and Pd2 Estimate' )
+        plt.xlim(50.0,0.01)
+        plt.ylim(1, 100000)
+        plt.grid(True, which="both",ls="-")
+        plt.legend()
+        
+        #Use pts array to store selected points
+        pts = []
+        
+        
+        while len(pts) < 1:
+            tellme('Select BVtotal')
+            pts = np.asarray(plt.ginput(1, timeout=3))
+        
+        BVtotal = pts.item(0)
+        junk = pts.item(1)
+        
+        BV2 = BVtotal - BV1
+        print('BV2 = ',BV2)
+    
+        G2=0.2
+        
+        print()
+        print('BVtotal =', round(BVtotal,2))
+        print()
+        
+        
+        plt.close('all')  
+    # =============================================================================
+    #             End of Graphical Input of BVtotal
+    # =============================================================================
+    #BVtotal=10
+    
+    
+
+    
+    # =============================================================================
+    #             Scipy for Curve_fit of Pd1, G1 and BV1
+    # =============================================================================
+    from scipy.optimize import curve_fit
+    # =============================================================================
+    #             Scipy for Curve_fit for just Pd1, G1 and BV1
+    # =============================================================================
+    if no_pore_sys == 1: 
+        
+        bvarray_pore1 = []; #make list of 0 length
+        pcarray_pore1 = []
+        
+        for i in range(1, 115, 1):
+            if Pc_r[i] > Pd1 and Pc_r[i] < Pd2 :
+                BVOCC = (BVocc_r[i])
+        
+                bvarray_pore1.append(BVocc_r[i]); #add items 
+                pcarray_pore1.append(Pc_r[i]); #add items     
+        
+            
+        ydata=np.array(bvarray_pore1)
+        xdata=np.array(pcarray_pore1)
+        
+        def func(xdata, a, b, c):
+            return a*10**((-0.434*b)/np.log10(xdata/c))
+
+        popt, pcov = curve_fit(func, xdata, ydata, method='trf', bounds=([1, .1, Pd1 ], [np.inf, np.inf, np.inf]))
+    
+        
+        BV1_solve = popt[0]   
+        G1_solve  = popt[1]
+        Pd1_solve = popt[2]
+    
+        
+        print('      Pd1 pick =',round(Pd1,1),', G1 or popt[1] =',round(popt[1],2),',       BV1 pick =',round(BV1,2))
+        print('Pd1 or popt[2] =',round(popt[2],1),', G1 or popt[1] =',round(popt[1],2),', BV1 or popt[0] =',round(popt[0],2))
+        print('Pd1 or popt[2] =',round(Pd1_solve,1),', G1 or popt[1] =',round(G1_solve,2),', BV1 or popt[0] =',round(BV1_solve,2))
+        print()
+    
+        Pd2_solve = float("nan")
+        G2_solve  = float("nan")
+        BV2_solve = float("nan")
+    
+        BVtotal = BV1_solve 
+    
+        # =============================================================================
+        #             Create Pc Curves for curve fit Thomeer parameters
+        # =============================================================================
+        Pc = 0.5
+        bvarray_pred = []; #make list of 0 length
+        pcarray_pred = []
+        
+        for j in range(1, 105, 1):
+            if Pc > Pd1_solve:
+                BVOCC1 = BV1_solve * 10**((-0.434 * G1_solve) / np.log10(Pc / Pd1_solve))
+            else:
+                BVOCC1 = 0.001
+        
+        
+            BVOCC = BVOCC1
+        
+            bvarray_pred.append(BVOCC); #add items 
+            pcarray_pred.append(Pc); #add items 
+            
+            Pc = Pc * 1.12
+        
+           
+        x_solve=np.array(bvarray_pred)
+        y_solve=np.array(pcarray_pred)
+             
+    
+    # =============================================================================
+    #             Scipy for Curve_fit of 2 Pore Systems
+    # =============================================================================
+    elif no_pore_sys == 2  :
+    
+        bvarray_pore1 = []; #make list of 0 length
+        pcarray_pore1 = []
+        
+        for i in range(1, 115, 1):
+            if Pc_r[i] > Pd1 and Pc_r[i] < Pd2 :
+            
+                #BVOCC = (BVocc_r[i])
+        
+                bvarray_pore1.append(BVocc_r[i]); #add items 
+                pcarray_pore1.append(Pc_r[i]); #add items     
+        
+            
+        ydata=np.array(bvarray_pore1)
+        xdata=np.array(pcarray_pore1)
+        
+        def func(xdata, a, b, c):
+            return a*10**((-0.434*b)/np.log10(xdata/c))
+          
+        popt, pcov = curve_fit(func, xdata, ydata, method='trf', bounds=([1.0, 0.1, 1.0 ], [np.inf, np.inf, np.inf]))
+           
+        BV1_solve = popt[0] 
+
+        G1_solve  = popt[1]
+        Pd1_solve = popt[2]
+    
+        
+        print('      Pd1 pick =',round(Pd1,1),', G1 or popt[1] =',round(popt[1],2),',       BV1 pick =',round(BV1,2))
+        print('Pd1 or popt[2] =',round(popt[2],1),', G1 or popt[1] =',round(popt[1],2),', BV1 or popt[0] =',round(popt[0],2))
+        print('Pd1 or popt[2] =',round(Pd1_solve,1),', G1 or popt[1] =',round(G1_solve,2),', BV1 or popt[0] =',round(BV1_solve,2))
+        print()
+        # =============================================================================
+        #             Scipy for Curve_fit of Pd2, G2 and BV2
+        # =============================================================================
+        bvarray_pore2 = []; #make list of 0 length
+        pcarray_pore2 = []
+        
+        for i in range(1, 115, 1):
+            if Pc_r[i] > Pd2 :
+            
+                #BVOCC = (BVocc_r[i])
+        
+                bvarray_pore2.append(BVocc_r[i]); #add items 
+                pcarray_pore2.append(Pc_r[i]); #add items     
+        
+            
+        ydata2=np.array(bvarray_pore2)
+        xdata2=np.array(pcarray_pore2)
+        
+        max_bvocc = np.max(BVocc_r)
+        
+        def func2(xdata2, a, b, c):
+            return a*10**((-0.434*b)/np.log10(xdata2/c))
+                    
+        popt, pcov = curve_fit(func2, xdata2, ydata2, method='dogbox', bounds=([0.0 , 0.1, 1.0 ], [np.inf, np.inf, np.inf]))    
+
+
+        #def func2(xdata2, a, b):
+        #    return a*10**((-0.434*b)/np.log10(xdata2/Pd2))
+        #popt, pcov = curve_fit(func2, xdata2, ydata2, method='trf', bounds=([0 , 0.1 ], [np.inf, np.inf]))
+
+  
+ 
+        print('This is the second pore system',popt[0],popt[1])
+
+         
+        print(popt[0],popt[1])
+        
+        if  popt[0] - BV1_solve > 0:
+            BV2_solve = popt[0] - BV1_solve   
+        else:
+            BV2_solve = 0       
+       
+        
+        G2_solve  = popt[1]
+        Pd2_solve = Pd2
+
+        print()
+        print()
+        print('Pd2  =',round(Pd2_solve,1),', G2 or popt[1] =',round(G2_solve,2),', BV2 or popt[0] =',round(BV2_solve,2))
+        print()
+    
+        # =============================================================================
+        #             Create Pc Curves for curve fit Thomeer parameters
+        # =============================================================================
+        Pc = 0.5
+        bvarray_pred = []; #make list of 0 length
+        pcarray_pred = []
+        bvocc2_pred = []
+        
+        for j in range(1, 105, 1):
+            if Pc > Pd1_solve:
+                BVOCC1 = BV1_solve * 10**((-0.434 * G1_solve) / np.log10(Pc / Pd1_solve))
+            else:
+                BVOCC1 = 0.001
+        
+            if Pc > Pd2_solve:
+                BVOCC2 = (BV2_solve) * 10**((-0.434 * G2_solve) / np.log10(Pc / Pd2_solve))
+            else:
+                BVOCC2 = 0.001
+        
+        
+            BVOCC = BVOCC1 + BVOCC2
+        
+            bvarray_pred.append(BVOCC); #add items 
+            pcarray_pred.append(Pc); #add items 
+            bvocc2_pred.append(BVOCC2)
+            
+            Pc = Pc * 1.12
+        
+           
+        x_solve=np.array(bvarray_pred)
+        x2_solve=np.array(bvocc2_pred)
+        y_solve=np.array(pcarray_pred)
+       
+        # =============================================================================
+        #             End of Scipy for Curve_fit of Pd1, G1 and BV1
+        # =============================================================================
+        
+     
+    
+    
+    g1_solve  = G1_solve
+    g2_solve  = G2_solve
+    pd1_solve = Pd1_solve
+    pd2_solve = Pd2_solve
+    bv1_solve = BV1_solve
+    bv2_solve = BV2_solve
+    closure   = Closure
+    
+       
+    
+    # =============================================================================
+    #             Pc Curve GUI Picks
+    # =============================================================================
+    Pc_gui = 0.5
+    bvarray_gui = []; #make list of 0 length
+    pcarray_gui = []
+    
+    G1_gui = G1_solve
+    G2_gui = G2_solve
+    
+    for j in range(1, 105, 1):
+        if Pc_gui > Pd1:
+            BVOCC1_gui = BV1 * 10**((-0.434 * G1_gui) / np.log10(Pc_gui / Pd1))
+        else:
+            BVOCC1_gui = 0.001
+    
+        if Pc_gui >= Pd2:
+            BVOCC2_gui = (BVtotal-BV1) * 10**((-0.434 * G2_gui) / np.log10(Pc_gui / Pd2))
+        else:
+            BVOCC2_gui = 0.001
+    
+    
+        BVOCC_gui = BVOCC1_gui + BVOCC2_gui
+    
+        bvarray_gui.append(BVOCC_gui); #add items 
+        pcarray_gui.append(Pc_gui); #add items 
+        
+        Pc_gui = Pc_gui * 1.12
+    
+       
+    x_gui=np.array(bvarray_gui)
+    y_gui=np.array(pcarray_gui)
+
+
+    
+    # =============================================================================
+    #             Final Plot
+    # =============================================================================
+    plt.figure(figsize=(10,12))
+    #ax.loglog(x2, y2, 'r-'  , linewidth=3 , label='Nearest Pc Curve')
+    plt.loglog(x_Pc_nocc, y_Pc, 'k--' , linewidth=1 ,markersize = 1, label='Actual HPMI Pc Curve')
+    plt.loglog(Closure, Pd1, 'ko' , linewidth=10 , label='Closure Correction')        
+    #ax.loglog(x5, y5, 'b--' , linewidth=3 , label='kNN Pc Curve')
+    plt.loglog(x_Pc, y_Pc, 'g-' , linewidth=2 , label='Closure Corrected Pc Curve')
+    #ax.loglog(x_gui  , y_gui,   'b--' , linewidth=1 , label='Pc from GUI Picks')
+    plt.loglog(x_solve, y_solve, 'r-' , linewidth=3 , label='Thomeer Modeled Pc Curve')
+
+           
+    plt.xlim(50, 0.01)
+    #ax.gca().invert_xaxis()
+    plt.ylim(1, 100000)
+    #ax.set_title("Pc Curves from Scipy Curve_fit", fontname="Times New Roman", size=24,fontweight="bold", color='blue')            
+    plt.title("Thomeer Parameters from Scipy Curve_fit used to Model HPMI data", size=16,fontweight="bold", color='blue')            
+    
+    plt.ylabel('Pc Hg', fontsize=16, fontweight="bold", color = 'blue')
+    plt.xlabel('BVOCC', fontsize=16, fontweight="bold", color = 'blue')
+    plt.grid(True, which="both",ls="-")
+    plt.legend()
+    
+    plt.text(50,8,' h = 2.4ft'  ,horizontalalignment='left', fontsize=10, fontweight="bold",color='green')
+    plt.text(50,80,' h = 24.5ft',horizontalalignment='left', fontsize=10,fontweight="bold", color='green')
+    plt.text(50,800,' h = 245ft',horizontalalignment='left', fontsize=10,fontweight="bold", color='green') 
+    plt.text(50,Pd1,'---- height @ Pd',horizontalalignment='left', fontsize=12, fontweight="bold", color='blue', fontstyle='italic') 
+    
+    plt.text(.1,Pd1,' Pd1',horizontalalignment='left', size=14, fontweight="bold", color='blue')
+    #plt.text(max(diff(x_Pc)) + 1,    Pd1 + 6*Pd1,'    G1',horizontalalignment='right',  size=14,fontweight="bold", color='blue')
+    plt.text(BV1_solve + BV2_solve +4,  14000,'  BV_infinite',horizontalalignment='right',  size=14,fontweight="bold", color='blue')
+    plt.axvline(x= BVtotal+1, color='blue' , linestyle='--')  #vertical line        
+    
+    #plt.annotate('            ', fontsize=14, color='blue', xy=(BV1_solve + BV2_solve +0, 10000), xytext=(40,12000),
+    #    arrowprops=dict(facecolor='blue', shrink=0.05),
+    #)
+    
+    plt.text(40,3.3  , 'Thomeer Parameter Estimates from Scipy curve_fit:', horizontalalignment='left', fontsize=14, fontweight="bold",color='blue')
+    plt.text(40,2.2  , 'Pd1 ='   , horizontalalignment='left', fontsize=12, fontweight="bold",color='red')
+    plt.text(20,2.2  , round(Pd1_solve,1) , horizontalalignment='left', fontsize=12, fontweight="bold",color='red')
+    plt.text(6,2.2   , 'G1 ='  , horizontalalignment='left', fontsize=12, fontweight="bold",color='red')
+    plt.text(3.5,2.2   , round(G1_solve,2)  , horizontalalignment='left', fontsize=12, fontweight="bold",color='red')
+    plt.text(0.8,2.2 ,'BV1 = ' , horizontalalignment='left', fontsize=12, fontweight="bold",color='red')
+    plt.text(0.4,2.2 , round(BV1_solve,2) , horizontalalignment='left', fontsize=12, fontweight="bold",color='red')
+
+
+    if no_pore_sys > 1:     
+        plt.loglog(x2_solve, y_solve, 'k--' , linewidth=1 , label='Thomeer Modeled BVOCC2')
+        plt.text(40,1.5  , 'Pd2 ='   , horizontalalignment='left', fontsize=12, fontweight="bold",color='brown')
+        plt.text(20,1.5  , round(Pd2_solve,1) , horizontalalignment='left', fontsize=12, fontweight="bold",color='brown')
+        plt.text(6,1.5   , 'G2 ='  , horizontalalignment='left', fontsize=12, fontweight="bold",color='brown')
+        plt.text(3.5,1.5   , round(G2_solve,2)  , horizontalalignment='left', fontsize=12, fontweight="bold",color='brown')
+        plt.text(0.8,1.5 ,'BV2 = ' , horizontalalignment='left', fontsize=12, fontweight="bold",color='brown')
+        plt.text(0.4,1.5 , round(BV2_solve,2) , horizontalalignment='left', fontsize=12, fontweight="bold",color='brown')
+
+    plt.text(40,1.1  , 'Sample_NO ='   , horizontalalignment='left', fontsize=12, fontweight="bold",color='black')
+    plt.text(8,1.1  , sample_no    , horizontalalignment='left', fontsize=12, fontweight="bold",color='black')
+    plt.text(0.8,1.1 ,'Closure Correction  = ' , horizontalalignment='left', fontsize=12, fontweight="bold",color='black')
+    plt.text(0.08,1.1 , round(Closure,2) , horizontalalignment='left', fontsize=12, fontweight="bold",color='black')
+
+    
+    plt.show()
+    
+
+
+    # Store data into geolog
+    #geolog.puttable()
+
+    geolog.putrow()
+
+
+
+
+
