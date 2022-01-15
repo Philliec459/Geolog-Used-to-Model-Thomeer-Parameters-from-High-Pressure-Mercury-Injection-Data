@@ -1,8 +1,9 @@
 # Geolog-Used-to-Model-Thomeer-Parameters-from-High-Pressure-Mercury-Injection-Data
-This repository provides a Geolog Project that is used to model SCAL High Pressure Mercury Injection (HPMI) core data 
+This repository provides a complete zipped (compressed) Geolog Project that is used to model SCAL High Pressure Mercury Injection (HPMI) core data using Thomeer Capillary Pressure parameters. 
+## Note: This Geolog project is new as of January 15, 2022 and contains the newest refinements to our Thomeer modeling.
 
 ## Introduction:
-This GitHub repository uses python code to import High Pressure Mercury Injection (HPMI) Core data from Excel and then use a Thomeer hyperbola to model the Thomeer Capillary Pressure parameters as shown below. Ed Clerke used a similar method in Excel with Solver to estimate his Thomeer parameters for each HPMI sample that went into the Rosetta Stone Arab D Carbonate Thomeer database. His Excel spreadsheet is readily available, and we will included as copy of this spreadsheet in this repository. We also used fminsearch in Matlab too. We have used these types of software to establish our own Reservoir Characterization Reservoir-Specific core calibration databases in the past for a reservoir-specific studies.
+This GitHub repository uses python code to import High Pressure Mercury Injection (HPMI) Core data directly from Geolog and then use a Thomeer hyperbola to model the Thomeer Capillary Pressure parameters as shown below. Ed Clerke used a similar method in Excel with Solver to estimate his Thomeer parameters for each HPMI sample that went into the Rosetta Stone Arab D Carbonate Thomeer database. In the past we have also used fminsearch in Matlab, but with this repository we are now able to use Geolog to perform the modeling of the HPMI data. We have used these types of software to establish our own Reservoir Characterization Reservoir-Specific core calibration databases in the past for a reservoir-specific studies.
 
 ![HPMI_Image](HPMI.png)
 
@@ -17,7 +18,7 @@ The third step is to select the Total porosity for the HPMI data called BVtotal 
 
 ![HPMI_Image](Thomeer_Parameter_fitting_Geolog2.gif)
 
-This program uses Scipy Optimize Curve_fit to estimate the appropriate Thomeer parameters necessary to model the HPMI data. The points selected from the GUIs are used to estimate boundary conditions for these estimations, and the estimations for this example are shown below:
+This program uses Scipy Optimize curve_fit to estimate the appropriate Thomeer parameters necessary to model the HPMI data. The points selected from the GUIs are used to estimate boundary conditions for these estimations, and the estimations for this example are shown below:
 
     Thomeer Parameters Estimated from Imported HPMI Data:
         Pd1 = 8.67  ,  G1 = 0.54 , BV1 = 10.13
@@ -25,7 +26,7 @@ This program uses Scipy Optimize Curve_fit to estimate the appropriate Thomeer p
 
 
 ## Reservoir Characterization Workflow:
-We are using the HPMI data from just one sample for this example. Our objective will be to employ this program in Geolog as a python loglan. In Geolog we will read the Pc data in from the SCAL data stored in a well and write the results for each sample back to Geolog to build our sample-by-sample core calibration database. We would then use the carbonate characterization workflow as employed in our following GitHub repository but alter the workflow to employ our own new reservoir-specific calibration data for our reservoir characterization.
+We are now using the HPMI data from a number of samples in this project. Our objective develop this code using a Geolog python loglan. In Geolog we will read the Pc data in from the SCAL data stored in a Well and write the results for each sample back to Geolog to build our sample-by-sample core calibration database. We would then use the carbonate characterization workflow as employed in our following GitHub repository but alter the workflow to employ our own new reservoir-specific calibration data for our reservoir characterization.
 
 https://github.com/Philliec459/Geolog-Used-to-Automate-the-Characterization-Workflow-using-Clerkes-Rosetta-Stone-calibration-data
 
