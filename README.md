@@ -1,5 +1,5 @@
 # Geolog-Used-to-Model-Thomeer-Parameters-from-High-Pressure-Mercury-Injection-Data
-This repository provides a complete zipped (compressed) Geolog Project that is used to model SCAL High Pressure Mercury Injection (HPMI) core data using Thomeer Capillary Pressure parameters. 
+This repository contains a complete zipped (compressed) Geolog Project that is used to model SCAL High Pressure Mercury Injection (HPMI) core data using Thomeer Capillary Pressure parameters. 
 ## Note: This Geolog project is new as of January 15, 2022 and contains the newest refinements to our Thomeer modeling.
 
 ## Introduction:
