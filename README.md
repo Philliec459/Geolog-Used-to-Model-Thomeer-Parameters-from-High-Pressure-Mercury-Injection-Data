@@ -1,7 +1,7 @@
 # Geolog-Used-to-Model-Thomeer-Parameters-from-High-Pressure-Mercury-Injection-Data
 This repository contains a complete compressed (zipped) Geolog Project that has been used to model SCAL High Pressure Mercury Injection (HPMI) core data using Thomeer Capillary Pressure parameters. 
 ---
-## Note: This Geolog project is new as of January 15, 2022.  It contains the newest refinements to our Thomeer Capillary Pressure parameter modeling loglan software. However, please still consider this work in progress. 
+## Note: This Geolog project is new as of January 16, 2022.  It contains the newest refinements to our Thomeer Capillary Pressure parameter modeling loglan software. However, please still consider this work in progress. 
 ---
 ## Introduction:
 This GitHub repository uses python loglan code to load High Pressure Mercury Injection (HPMI) Core data directly from the SCAL set in a Geolog Well and then model the HPMI data using a Thomeer hyperbola by our estimations of the Thomeer Capillary Pressure parameters as shown below. Ed Clerke used a similar method in Excel with Solver to estimate his Thomeer parameters for each HPMI sample that went into the Rosetta Stone Arab D Carbonate Thomeer database. We have also used fminsearch in Matlab too, but with this repository we are able to use Geolog to perform the modeling of the HPMI data. The purpose of this Geolog project is to serve as an example that will allow the user to build their own reservoir-specific core calibration database for their Reservoir Characterization studies. 
