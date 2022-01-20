@@ -1,7 +1,7 @@
 # Geolog-Used-to-Model-Thomeer-Parameters-from-High-Pressure-Mercury-Injection-Data
 This repository contains a complete compressed (zipped) Geolog Project that has been used to model SCAL High Pressure Mercury Injection (HPMI) core data using Thomeer Capillary Pressure parameters. 
 ---
-## Note: This Geolog project is new as of January 16, 2022.  It contains the newest refinements to our Thomeer Capillary Pressure parameter modeling loglan software. However, please still consider this work in progress. 
+## Note: This Geolog project is new as of January 20, 2022.  It contains the newest refinements to our Thomeer Capillary Pressure parameter modeling loglan software. However, please still consider this work in progress. 
 ---
 ## Introduction:
 This GitHub repository uses python loglan code to load High Pressure Mercury Injection (HPMI) Core data directly from the SCAL set in a Geolog Well and then model the HPMI data using a Thomeer hyperbola by our estimations of the Thomeer Capillary Pressure parameters as shown below. Ed Clerke used a similar method in Excel with Solver to estimate his Thomeer parameters for each HPMI sample that went into the Rosetta Stone Arab D Carbonate Thomeer database. We have also used fminsearch in Matlab too, but with this repository we are able to use Geolog to perform the modeling of the HPMI data. The purpose of this Geolog project is to serve as an example that will allow the user to build their own reservoir-specific core calibration database for their Reservoir Characterization studies. 
@@ -9,9 +9,11 @@ This GitHub repository uses python loglan code to load High Pressure Mercury Inj
 ![HPMI_Image](HPMI.png)
 
 ## How it Works:
-The following animated image illustrates the process in Geolog. We start with the original HPMI data. The first step is to locate the point on the HPMI curve that represents the point where real matrix data begins and not the HPMI data representing surface conformance around the plug sample. We also select the Initial Displacement Pressure (Pd1) for the sample for the first pore system too. We find that most carbonate rocks have bi-modal pore throat distributions representing two pore systems as shown in the example below. The selection of this point is performed with just a click on the Graphical User Interface (GUI) where this occurs. 
+The following animated image illustrates the process in Geolog. We start with the original HPMI data. The first step is to locate the point on the HPMI curve that represents the point where real matrix data begins and not the HPMI data representing surface conformance around the plug sample. We now believe that the best way to pick the Closure Correction is by using the the Log-Log and Linear-log BVocc vs. Pc cross plots while in Geolog and inputting this Closure Correction as a curve called Closure in the SCAL set for each sample first prior to the Thomeer Analysis. 
 
-For the second step we pick the point for the Bulk Volume porosity of the first pore system (BV1) as well as the Initial Displacement Pressure for the second pore system (Pd2) if available from the data.
+![HPMI_Image](PickClosure.png)
+
+For the second step we pick the point for the Bulk Volume porosity of the first pore system (BV1) as well as the Initial Displacement Pressure for the second pore system (Pd2) if available from the sample data.
 
 The third step is to select the Total porosity for the HPMI data called BVtotal where the porosity of the second pore system is called BV2:
 
