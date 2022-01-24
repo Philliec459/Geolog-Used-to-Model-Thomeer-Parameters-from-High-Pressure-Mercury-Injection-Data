@@ -1,17 +1,19 @@
 # Geolog-Used-to-Model-Thomeer-Parameters-from-High-Pressure-Mercury-Injection-Data
-This repository contains a complete compressed (zipped) Geolog Project that has been used to model SCAL High Pressure Mercury Injection (HPMI) core data using Thomeer Capillary Pressure parameters. 
+This repository contains a complete compressed (zipped) Geolog Project that is used to model SCAL High Pressure Mercury Injection (HPMI) core data using Thomeer Capillary Pressure parameters. 
 ---
-### Updated January 24, 2022 with python 'try' implementation and calculations of error, Thomeer perm and Mode of Pore Thoat Distribution in Microns (diameter). There are now a number of samples that can be used. We have added an option to create *.png image from the Final Plot too. 
+### Updated January 24, 2022 with python 'try' implementation and calculations of error, Thomeer perm and the exact Mode of Pore Thoat Distribution in Microns (diameter). This project now has a number of HPMI samples that can be used as a demonstration of the Geolog python loglans used in this process. We have added an option to create *.png image for for each of the Final Plot of each sample too. 
 
-### Right now our Thomeer Workflow has all of the Closure Corrections by sample as a constant called Closure. We think it is best to use a series of cross plots in Geolog or python matplotlib to pick this Closure Correction from the HPMI data up front before starting on the Thomeer Analysis of the HPMI data. The Closure Correction is given in the same line as the selection of the Sample file that you select. We also have a curve called NO_PORE_SYS that is used to instruct the Notebook as to how many pore systems to solve for in this process. 
+### Right now our Thomeer Workflow has all of the Closure Corrections by sample as a curve called Closure in the SCAL set. We think it is best to use a number of cross plots in Geolog to pick this Closure Correction from the HPMI data up front before starting on the Thomeer Analysis. We also have a curve called NO_PORE_SYS that is used to instruct the python loglan as to how many pore systems to solve for in this process. 
 
-### In this Jupyter Notebook we also have an Automatic option (‘YES’,’NO’) that if Auto=‘NO’, then the python loglan will allow you to make your own picks for the following:
+### In this Jupyter Notebook we also have an Automatic option (‘YES’,’NO’) that if Auto=‘NO’, then the python loglan will allow you to make your own picks for the following Thomeer parameters that are used as seeds to the process:
 
-      1) Pd1
-      2) BV1 & Pd2 if 2 Pore Systems
-      3) BVtotal if 2 Pore Systems
+      1) Pd1 (Closure Correction is already input as a curve). If Auto='Yes', then Pd1 is automatically picked. 
+      2) BV1 & Pd2 if there are 2 Pore Systems used in Auto = 'NO' or 'YES'.
+      3) BVtotal if 2 Pore Systems in Auto = 'NO'.
 
-### If Auto = 'YES' and your sample has 2 pore systems, then you would still need to pick Pd2 and BV1 from item #2 above.However, please still consider all of this work in progress. 
+### Again, if Auto = 'YES' and your sample has 2 pore systems, then you would still need to pick BV1 and Pd2 from item #2 above. 
+
+### Please consider all of this work in progress, and your feedback is welcome.
 ---
 ## Introduction:
 This GitHub repository uses python loglan code to load High Pressure Mercury Injection (HPMI) Core data directly from the SCAL set in a Geolog Well and then model the HPMI data using a Thomeer hyperbola by our estimations of the Thomeer Capillary Pressure parameters as shown below. Ed Clerke used a similar method in Excel with Solver to estimate his Thomeer parameters for each HPMI sample that went into the Rosetta Stone Arab D Carbonate Thomeer database. We have also used fminsearch in Matlab too, but with this repository we are able to use Geolog to perform the modeling of the HPMI data. The purpose of this Geolog project is to serve as an example that will allow the user to build their own reservoir-specific core calibration database for their Reservoir Characterization studies. 
