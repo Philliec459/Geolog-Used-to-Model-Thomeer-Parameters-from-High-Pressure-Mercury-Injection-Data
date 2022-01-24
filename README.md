@@ -7,7 +7,7 @@ This repository contains a complete compressed (zipped) Geolog Project that is u
 
 ### In this Jupyter Notebook we also have an Automatic option (‘YES’,’NO’) that if Auto=‘NO’, then the python loglan will allow you to make your own picks for the following Thomeer parameters that are used as seeds to the process:
 
-      1) Pd1 (Closure Correction is already input as a curve). If Auto='Yes', then Pd1 is automatically picked. 
+      1) Pd1 (Closure Correction is already input as a curve). If Auto='YES', then Pd1 is automatically picked. 
       2) BV1 & Pd2 if there are 2 Pore Systems used in Auto = 'NO' or 'YES'.
       3) BVtotal if 2 Pore Systems in Auto = 'NO'.
 
