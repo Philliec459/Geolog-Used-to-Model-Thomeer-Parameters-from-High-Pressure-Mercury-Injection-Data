@@ -11,7 +11,7 @@ This repository contains a complete compressed (zipped) Geolog Project that is u
 
 However, then you would not be able to directly choose a Closure Correction in pu from this plot. Therefore, in the plot below we have created a pseudo PTD by plotting BVocc on the x axis in pu and Delta BVocc on the y axis: 
 
-![HPMI_Image](Initial_CC.png)
+![HPMI_Image](Pseudo_CC.png)
 
 The intial CC from the SCAL set Closure curve is shown as the green point. We also pick a CC estimate from this pseudo PTD plot below using the CC results recorded as Closure from the SCAL set to help guide us.
 
