@@ -5,20 +5,21 @@ This repository contains a complete compressed (zipped) Geolog Project that is u
 
 ### Right now our Thomeer Workflow has all of the Closure Corrections for each sample as a curve called Closure in the SCAL set. We think it is best to use a number of cross plots in Geolog to pick this Closure Correction from the HPMI data up front before starting on the Thomeer Analysis. We also have a curve called NO_PORE_SYS that is used to instruct the python loglan as to how many pore systems to solve for in this process. 
 
-### To pick our final Closure Correction (CC) we start the CC recorded in the SCAL set, but it is missing an important plot that is shown directly below. Normally you would plot a Pore Throat Distribution (PTD) that would have microns on the x axis and Delta BVocc on the y axis. 
+### To pick our final Closure Correction (CC) we start the CC recorded in the SCAL set, but it is missing an important plot that is shown directly below. Normally you would plot a Pore Throat Distribution (PTD) that would have microns on the x axis and Delta BVocc on the y axis where the x axis is calculated: 
 
 	microns =  ((2.0 * 367.0)/(Pc_r[i] * 69035.0)) * 10000.0
 
-However, then you would not be able to choose a Closure Correction in pu from this plot. Therefore, in the plot below we have a pseudo PTD by plotting BVocc on the x axis and Delta BVocc on the y axis. 
+However, then you would not be able to choose a Closure Correction directly in pu from this plot. Therefore, in the plot below we have created a pseudo PTD by plotting BVocc on the x axis and Delta BVocc on the y axis: 
 
 ![HPMI_Image](Pseudo_PTD.png)
 
-You can see the intial CC from the SCAL set Closure curve as the green dot. We are picking a CC from this pseudo PTD plot below using the CC results recorded as Closure from the SCAL set to help guide us.
+The intial CC from the SCAL set Closure curve is shown as the green point. We also pick a CC from this pseudo PTD plot below using the CC results recorded as Closure from the SCAL set to help guide us.
 
-The plot below shows how we pick the final CC. We have what is first recorded CC from the SCAL set, and we have a CC from the pseudo PTD using a y axis value of Pc = 2 psi. We make our final CC pick guided by our previous two CC picks, and then proceed with the Thomeer analysis. This method seems to be the best way to pick the final CC.
+The plot below shows how we pick the final CC. We have the first recorded CC from the SCAL set, and we have a CC from the pseudo PTD where y axis value have a Pc = 2 psi. We make our final CC pick guided by our previous two CC estimates, and then proceed with the Thomeer analysis. This method to pick CC appears to be the best way to pick the final C for our analysis. 
 
 ![HPMI_Image](Pick_final_CC.png)
 
+To use this option the loglan option PICK_CC = 'PICK'. You can used your inital Closure from the SCAL set by using a PICK_CC = 'SCAL'.
 
 ### In this new loglan we also have an Automatic option (‘YES’,’NO’) that if Auto=‘NO’, then the python loglan will allow you to make your own picks for the following Thomeer parameters that are used as seeds to the process:
 
