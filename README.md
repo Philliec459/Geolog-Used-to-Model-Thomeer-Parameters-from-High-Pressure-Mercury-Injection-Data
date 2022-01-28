@@ -37,9 +37,9 @@ This GitHub repository uses python loglan code to load High Pressure Mercury Inj
 ![HPMI_Image](HPMI.png)
 
 ## How it Works:
-The following animated image illustrates the process in Geolog. We start with the original HPMI data. The first step is to locate the point on the HPMI curve that represents the point where real matrix data begins and not the HPMI data representing surface conformance around the plug sample. We now believe that the best way to pick the Closure Correction is by using the the Log-Log and Linear-log BVocc vs. Pc cross plots while in Geolog and inputting this Closure Correction as a curve called Closure in the SCAL set for each sample first prior to the Thomeer Analysis. 
+The following animated image illustrates the process in Geolog. We start with the original HPMI data. The first step is to locate the point on the HPMI curve that represents the point where real matrix data begins and not the HPMI data representing surface conformance around the plug sample. We now believe that the best way to pick the Closure Correction is discussed above, but our first estimate comes from the cross plots below: 
 
-![HPMI_Image](PickClosure.png)
+![HPMI_Image](Initial_CC.png)
 
 For the second step we pick the point for the Bulk Volume porosity of the first pore system (BV1) as well as the Initial Displacement Pressure for the second pore system (Pd2) if available from the sample data.
 
