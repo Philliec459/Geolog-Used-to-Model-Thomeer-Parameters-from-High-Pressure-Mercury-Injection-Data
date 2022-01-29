@@ -81,6 +81,16 @@ In the above workflow example, we used hundreds of HPMI samples as calibration d
 Also, the following image shows one example from our modeling of saturations from Capillary Pressure vs. log analysis. The match is very good. I personally have performed this type of characterization on at least 30 huge carbonate oil fields in Saudi, and the results shown below are very typical.
 
 ![HPMI_Image](logsats.gif)
+---
+# Required Python Libraries:
+	import geolog
+	import numpy as np
+	import pandas as pd
+	from numpy import diff
+	import matplotlib.pyplot as plt
 
+	import scipy as sp
+	import scipy.interpolate
+	from scipy.optimize import curve_fit
 ---
 1 Clerke, E. A., Mueller III, H. W., Phillips, E. C., Eyvazzadeh, R. Y., Jones, D. H., Ramamoorthy, R., Srivastava, A., (2008) “Application of Thomeer Hyperbolas to decode the pore systems, facies and reservoir properties of the Upper Jurassic Arab D Limestone, Ghawar field, Saudi Arabia: A Rosetta Stone approach”, GeoArabia, Vol. 13, No. 4, p. 113-160, October 2008.
