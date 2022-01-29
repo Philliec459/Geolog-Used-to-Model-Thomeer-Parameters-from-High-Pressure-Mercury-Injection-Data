@@ -57,6 +57,16 @@ This program uses Scipy Optimize curve_fit to estimate the appropriate Thomeer p
         Pd1 = 8.67  ,  G1 = 0.54 , BV1 = 10.13
         Pd2 = 389.1 ,  G2 = 0.24 , BV2 = 4.8
 
+In the image below we are showing the correlations between the different Thomeer parameter data. The first cross plot on the left shows the correlation between the Mode of the Pore Throat Distribution (PTD) called Mode vs. Core Permeability with a correlation coefficient of 0.97. The exact Mode of the PTD in microns can be calculated from the Thomeer parameters G1 and Pd1 using the Buiting equation below:
+ 
+ 	Mode(microns) = exp(-1.15*G1)*(214/Pd1)
+
+Most of the different rock typing techniques (r35, FZI ....) are trying to approxiamate the most dominant pore throat, but the Buiting Mode equation gives the user the exact Mode of the PTD.
+
+The second cross plot from the left shows the correlation of the Mode vs. Pd1 with a correlation coefficient of 0.99. We can model the Thomeer parameters using core calibrated permeability from logs. 
+
+![HPMI_Image](Thomeer_correlations.png)
+
 
 ## Reservoir Characterization Workflow:
 We now have numerous HPMI samples in this Geolog project in the SCAL set. In Geolog we first read-in the Capillary Pressure (Pc) data directly from the Well, perform our Thomeer analysis on each sample and then write the results back to Geolog. We use this process to build our own sample-by-sample core calibration database. After all the Thomeer analysis would be performed, then we would then use these results in a Reservoir Characterization workflow similar to what we employed in the following GitHub repository. Of course, we would alter the workflow to employ our own new reservoir-specific calibration data for our Reservoir Characterization studies.
