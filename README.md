@@ -19,7 +19,9 @@ The plot below shows how we pick the final CC. We have the first recorded CC fro
 
 ![HPMI_Image](Pick_final_CC.png)
 
-To use this option use the loglan option PICK_CC = 'PICK', or you can use your inital Closure from the SCAL set by using a PICK_CC = 'SCAL'.
+To use this option use the loglan option PICK_CC = 'PICK', or you can use your inital Closure from the SCAL set by using a PICK_CC = 'SCAL'. 
+
+- TIP: In this process you read the HPMI from the SCAL set and you write your Thomeer parameters, Core data and Closure to the Thomeer set. If you are satisfied with your Closure Corrections, then we would copy the Thomeer.Closure curve as the SCAL.Closure curve and then use PICK_CC = 'SCAL' if you want to make another run at the analysis. 
 
 ### In this new loglan we also have an Automatic option (‘YES’,’NO’) that if Auto=‘NO’, then the python loglan will allow you to make your own picks for the following Thomeer parameters that are used as seeds to the process:
 
