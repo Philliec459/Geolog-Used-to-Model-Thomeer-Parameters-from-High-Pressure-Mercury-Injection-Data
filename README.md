@@ -49,7 +49,7 @@ The third step is to select the Total porosity for the HPMI data called BVtotal 
 
       BV2 = BVtotal - BV1
 
-![HPMI_Image](Thomeer_Parameter_fitting_Geolog2.gif)
+![HPMI_Image](Thomeer_Parameter_fitting_Geolog4.gif)
 
 This program uses Scipy Optimize curve_fit to estimate the appropriate Thomeer parameters necessary to model the HPMI data. The points selected from the GUIs are used to estimate the boundary conditions for these estimations, and the estimations for a typical example are shown below where we have two pore systems available in the sample. 
 
