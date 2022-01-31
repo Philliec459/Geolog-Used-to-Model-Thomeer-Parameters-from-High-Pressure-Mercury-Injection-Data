@@ -9,7 +9,7 @@ This repository contains a complete compressed (zipped) Geolog Project that is u
 
 	microns =  ((2.0 * 367.0)/(Pc_r[i] * 69035.0)) * 10000.0
 
-However, then you would not be able to directly choose a Closure Correction in pu from this plot. Therefore, in the plot below we have created a pseudo PTD by plotting BVocc on the x axis in pu and Delta BVocc on the y axis also in pu. You select what appears to be a representative CC from this plot too. 
+However, then you would not be able to directly choose a Closure Correction in pu from this plot. However, using python we can determine at what point in the HPMI array data the micron cutoff was chosen and then use the corresponding BVocc at that same array element. We have created a pseudo PTD by plotting BVocc on the x axis in pu and Delta BVocc on the y axis also in pu. You select what appears to be a representative CC from this plot too. 
 
 ![HPMI_Image](CC_Distributions.svg)
 
