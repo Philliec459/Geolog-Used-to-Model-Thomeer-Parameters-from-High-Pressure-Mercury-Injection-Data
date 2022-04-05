@@ -11,13 +11,13 @@ This repository contains a complete compressed (zipped) Geolog Project that is u
 
 However, then you would not be able to directly choose a Closure Correction in pu from this plot. However, using python we can determine at what point in the HPMI array data the micron cutoff was chosen and then use the corresponding BVocc at that same array element. We have created a pseudo PTD by plotting BVocc on the x axis in pu and Delta BVocc on the y axis also in pu. You select what appears to be a representative CC from this plot too. 
 
-![HPMI_Image](CC_Distributions.svg)
+>![HPMI_Image](CC_Distributions.svg)
 
 The intial CC from the SCAL set Closure curve is shown as the green line. We also picked a CC estimate from the pseudo PTD plot above using the CC results recorded as Closure from the SCAL set to help guide us. 
 
 The plot below shows how we pick the final CC. We have the first recorded CC from the SCAL set, and we have a CC from the pseudo PTD. We make our final CC pick guided by our previous two CC estimates, and then proceed with the Thomeer parameter analysis. This method to pick the final CC appears to be the best to use for our analysis. 
 
-![HPMI_Image](Pick_final_CC.png)
+>![HPMI_Image](Pick_final_CC.png)
 
 To use this option use the loglan option PICK_CC = 'PICK', or you can use your inital Closure from the SCAL set by using a PICK_CC = 'SCAL'. 
 
@@ -36,12 +36,12 @@ To use this option use the loglan option PICK_CC = 'PICK', or you can use your i
 ## Introduction:
 This GitHub repository uses python loglan code to load High Pressure Mercury Injection (HPMI) Core data directly from the SCAL set in a Geolog Well and then model the HPMI data using a Thomeer hyperbola by our estimations of the Thomeer Capillary Pressure parameters as shown below. Ed Clerke used a similar method in Excel with Solver to estimate his Thomeer parameters for each HPMI sample that went into the Rosetta Stone Arab D Carbonate Thomeer database. We have also used fminsearch in Matlab too, but with this repository we are able to use Geolog to perform the modeling of the HPMI data. The purpose of this Geolog project is to serve as an example that will allow the user to build their own reservoir-specific core calibration database for their Reservoir Characterization studies. 
 
-![HPMI_Image](HPMI.png)
+>![HPMI_Image](HPMI.png)
 
 ## How it Works:
 The following animated image illustrates the process in Geolog. We start with the original HPMI data. The first step is to locate the point on the HPMI curve that represents the point where real matrix data begins and not the HPMI data representing surface conformance around the plug sample. We now believe that the best way to pick the Closure Correction is discussed above, but our first estimate comes from the cross plots below: 
 
-![HPMI_Image](Initial_CC.png)
+>![HPMI_Image](Initial_CC.png)
 
 For the second step we pick the point for the Bulk Volume porosity of the first pore system (BV1) as well as the Initial Displacement Pressure for the second pore system (Pd2) if available from the sample data.
 
@@ -49,7 +49,7 @@ The third step is to select the Total porosity for the HPMI data called BVtotal 
 
       BV2 = BVtotal - BV1
 
-![HPMI_Image](Thomeer_Parameter_fitting_Geolog4.gif)
+>![HPMI_Image](Thomeer_Parameter_fitting_Geolog4.gif)
 
 This program uses Scipy Optimize curve_fit to estimate the appropriate Thomeer parameters necessary to model the HPMI data. The points selected from the GUIs are used to estimate the boundary conditions for these estimations, and the estimations for a typical example are shown below where we have two pore systems available in the sample. 
 
@@ -65,7 +65,7 @@ Most of the different rock typing techniques (r35, FZI ....) are trying to appro
 
 The second cross plot from the left shows the correlation of the Mode vs. Pd1 with a correlation coefficient of 0.99. Once we calculate the Mode of the PTD you could use the regression equation in this cross plot to calculate Pd1. We can model the Thomeer parameters using core calibrated permeability from logs. 
 
-![HPMI_Image](Thomeer_correlations.png)
+>![HPMI_Image](Thomeer_correlations.png)
 
 
 ## Reservoir Characterization Workflow:
@@ -75,12 +75,12 @@ https://github.com/Philliec459/Geolog-Used-to-Automate-the-Characterization-Work
 
 In the above workflow example, we used hundreds of HPMI samples as calibration data. In the image below we are showing a Porosity vs. Permeability cross plot in the upper left for all the calibration samples used in Ed Clerke's Rosetta Stone calibration data for the Arab D reservoir. The colors represent different Petrophysical Rock Type (PRT) as defined by Clerke. In this example we select a small group of poro-perm samples, and then the Pc curves from this small group of selected samples is then shown in the lower left. The black Pc curve is the upscaled Pc curve from the selected samples, and the black bars in the histograms represent the median value for the selected samples. We would be using the upscaled Pc curves that vary level-by-level in the well to model saturations over a vast range of reservoir quality rock along the wellbore.
 
-![HPMI_Image](Thomeer_Pc_and_Thomeer_Parameters2.gif)
+>![HPMI_Image](Thomeer_Pc_and_Thomeer_Parameters2.gif)
 
 ## Modeling of Saturations Using Thomeer Capillary Pressure Parameters: 
 Also, the following image shows one example from our modeling of saturations from Capillary Pressure vs. log analysis. The match is very good. I personally have performed this type of characterization on at least 30 huge carbonate oil fields in Saudi, and the results shown below are very typical.
 
-![HPMI_Image](logsats.gif)
+>![HPMI_Image](logsats.gif)
 ---
 # Required Python Libraries:
 	import geolog
